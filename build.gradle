@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelmen.shadow' version '2.0.1'
+}
+
+mainClassName = "Main"
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'net.dv8tion:JDA:4.2.0_204'
+}
