@@ -19,6 +19,7 @@ public class Main extends ListenerAdapter {
         if(event.getAuthor().isBot()) {
             return;
         }
+        //processes input to produce desired output
         System.out.println("We received a message from " +
                 event.getAuthor().getName() + ": " +
                 event.getMessage().getContentDisplay());
