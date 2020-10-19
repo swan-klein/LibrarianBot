@@ -15,4 +15,5 @@ repositories {
 
 dependencies {
     compile 'net.dv8tion:JDA:4.2.0_204'
+    compile 'org.jsoup:jsoup:1.13.1'
 }

@@ -33,18 +33,31 @@ public class Main extends ListenerAdapter {
         System.out.println("We received a message from " +
                 event.getAuthor().getName() + ": " +
                 event.getMessage().getContentDisplay());
-        if(event.getMessage().getContentRaw().equals("!ping")) {
-            event.getChannel().sendMessage("Pong!").queue();
-        }
-        else if(event.getMessage().getContentRaw().substring(0,event.getMessage().getContentRaw().indexOf(' ')).equals("!booksBy")) {
-            String author = event.getMessage().getContentRaw();
-            author = author.substring(author.indexOf('"')+1);
-            author = author.substring(0,author.indexOf('"'));
-            try {
-                event.getChannel().sendMessage(Author.booksBy(author, workingDirectory.toString())).queue();
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            if (event.getMessage().getContentRaw().equals("!ping")) {
+                event.getChannel().sendMessage("Pong!").queue();
+            } else if (event.getMessage().getContentRaw().substring(0, event.getMessage().getContentRaw().indexOf(' ')).equals("!booksBy")) {
+                String author = event.getMessage().getContentRaw();
+                author = author.substring(author.indexOf('"') + 1);
+                author = author.substring(0, author.indexOf('"'));
+                try {
+                    event.getChannel().sendMessage(Author.booksBy(author, workingDirectory.toString())).queue();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (event.getMessage().getContentRaw().substring(0, event.getMessage().getContentRaw().indexOf(' ')).equals("!quoteSearch")) {
+                String quote = event.getMessage().getContentRaw();
+                quote = quote.substring(quote.indexOf('"') + 1);
+                quote = quote.substring(0, quote.indexOf('"'));
+                try {
+                    event.getChannel().sendMessage(Book.quoteSearch(quote)).queue();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
