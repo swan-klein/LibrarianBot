@@ -34,12 +34,9 @@ public class Main extends ListenerAdapter {
                 event.getAuthor().getName() + ": " +
                 event.getMessage().getContentDisplay());
         try {
-            if (event.getMessage().getContentRaw().equals("!ping")) {
-                event.getChannel().sendMessage("Pong!").queue();
-            } else if (event.getMessage().getContentRaw().substring(0, event.getMessage().getContentRaw().indexOf(' ')).equals("!booksBy")) {
+            if (event.getMessage().getContentRaw().substring(0, event.getMessage().getContentRaw().indexOf(' ')).equals("!booksBy")) {
                 String author = event.getMessage().getContentRaw();
-                author = author.substring(author.indexOf('"') + 1);
-                author = author.substring(0, author.indexOf('"'));
+                author = author.substring(author.indexOf(' ') + 1);
                 try {
                     event.getChannel().sendMessage(Author.booksBy(author, workingDirectory.toString())).queue();
                 } catch (Exception e) {
@@ -47,10 +44,18 @@ public class Main extends ListenerAdapter {
                 }
             } else if (event.getMessage().getContentRaw().substring(0, event.getMessage().getContentRaw().indexOf(' ')).equals("!quoteSearch")) {
                 String quote = event.getMessage().getContentRaw();
-                quote = quote.substring(quote.indexOf('"') + 1);
-                quote = quote.substring(0, quote.indexOf('"'));
+                quote = quote.substring(quote.indexOf(' ') + 1);
                 try {
                     event.getChannel().sendMessage(Book.quoteSearch(quote)).queue();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (event.getMessage().getContentRaw().substring(0, event.getMessage().getContentRaw().indexOf(' ')).equals("!wordFrequency")) {
+                String book = event.getMessage().getContentRaw();
+                book = book.substring(book.indexOf(' ') + 1);
+                String[] words = book.substring(book.indexOf(';') + 1).trim().split("[\\W]");
+                try {
+                    event.getChannel().sendMessage(Book.wordFrequency(book.substring(0,book.indexOf(";")), words, workingDirectory.toString())).queue();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -1,12 +1,6 @@
 package Librarian;
 
-import java.util.Scanner;
 import java.io.*;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 public class Book {
 
@@ -16,7 +10,7 @@ public class Book {
         StringBuilder elList = new StringBuilder();
         int index = 0;
         for (org.jsoup.nodes.Element el : els) {
-            if(!elList.toString().contains(el.text())) {
+            if (!elList.toString().contains(el.text())) {
                 elList.append(el.text());
                 if (index++ % 2 == 0) {
                     elList.append(" ");
@@ -26,5 +20,56 @@ public class Book {
             }
         }
         return elList.toString();
+    }
+
+    public static String wordFrequency(String book, String[] words, String path) throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(new File(path.substring(0, path.length()-1) + "GUTINDEX.ALL")));
+        String booknum;
+        while ((booknum = br.readLine()) != null) {
+            if (booknum.contains(book) && booknum.length() > 73) {
+                System.out.println(booknum);
+                booknum = booknum.substring(73).replaceAll("[^0-9]", "");
+                break;
+            }
+        }
+        if (booknum == null) return "No book with the title " + book + " was found";
+        StringBuilder url = new StringBuilder("https://mirrors.xmission.com/gutenberg/");
+        if (booknum.length() == 1) url.append("0/");
+        for (int i = 0; i < booknum.length()-1; i++) {
+            url.append(booknum.charAt(i));
+            url.append("/");
+        }
+        booknum += "/" + booknum + ".txt";
+        url.append(booknum);
+        int[] freqs = new int[words.length];
+        for (int i = 0; i < words.length; i++) {
+            freqs[i] = count_freq(org.jsoup.Jsoup.connect(url.toString()).get().getElementsByTag("body").get(0).text(), words[i]);
+        }
+        System.out.println(words[0] + freqs[0]);
+        StringBuilder ret = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            ret.append(words[i]);
+            ret.append(": ");
+            ret.append(freqs[i]);
+            if (i != words.length - 1) ret.append("\n");
+        }
+        return ret.toString();
+    }
+
+    // Function to count the frequency of
+    // a given word in the given string
+    static int count_freq(String str, String word) {
+
+        int freq = 0;
+        // Splitting to find the word
+        String[] arr = str.split("[\\W]");
+
+        // Loop to iterate over the words
+        for(String w : arr)
+        {
+            if (w.equalsIgnoreCase(word)) freq++;
+        }
+
+        return freq;
     }
 }
