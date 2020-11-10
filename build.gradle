@@ -3,6 +3,8 @@ plugins {
     id 'application'
 }
 
+apply plugin: 'idea'
+
 mainClassName = "Main"
 
 group 'org.example'
@@ -16,4 +18,6 @@ repositories {
 dependencies {
     compile 'net.dv8tion:JDA:4.2.0_204'
     compile 'org.jsoup:jsoup:1.13.1'
+    compile 'org.json:json:20171018'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
 }
