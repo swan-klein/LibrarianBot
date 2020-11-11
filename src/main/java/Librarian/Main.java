@@ -109,6 +109,8 @@ public class Main extends ListenerAdapter {
    		     bd.addField("```!author [book name]```", "Prints the author(s) of the book.\n", false);
    		     bd.addField("```!description [book name]```", "Prints a short description of a book.", true);
    		     bd.addField("```!rating [book name]```", "Prints the review rating of a book.", false);
+		     bd.addField("```!quoteSearch [quote]```", "Finds books with matching or similar quotes.", false);
+   		     bd.addField("```!booksBy [author]```", "Returns a list of all books by the author.", false);
    		     bd.setColor(new Color(0x7ED321));
    			 event.getChannel().sendMessage(bd.build()).queue();
     		}
