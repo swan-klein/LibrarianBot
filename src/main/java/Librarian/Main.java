@@ -73,13 +73,14 @@ public class Main extends ListenerAdapter {
     	  }
 
 		//processes input to produce desired output
+		//This message is just for debugging
 		System.out.println("We received a message from " +
 				event.getAuthor().getName() + ": " +
 				event.getMessage().getContentDisplay());
     	try {
     		
-    	    ArrayList<Book> books;  
-    		
+    	    ArrayList<Book> books;
+    	    //These Comms commands get information using Request_Json, some send many messages right after another
     		if(help.equals(Comms.AUTHOR.getComms()))
     		 {
     			books = Request_Json.j_getBooks(command.substring(1));
@@ -111,9 +112,11 @@ public class Main extends ListenerAdapter {
    		     bd.addField("```!rating [book name]```", "Prints the review rating of a book.", false);
 		     bd.addField("```!quoteSearch [quote]```", "Finds books with matching or similar quotes.", false);
    		     bd.addField("```!booksBy [author]```", "Returns a list of all books by the author.", false);
+   		     bd.addField("```!wordFrequency [book];[list of words]```", "Returns the frequency of the listed words (separated\nby spaces) and the total word count.", false);
    		     bd.setColor(new Color(0x7ED321));
    			 event.getChannel().sendMessage(bd.build()).queue();
     		}
+    		//These call the Book class to perform some task
     		else if (event.getMessage().getContentRaw().substring(0, event.getMessage().getContentRaw().indexOf(' ')).equals("!booksBy")) {
 				String author = event.getMessage().getContentRaw();
 				author = author.substring(author.indexOf(' ') + 1);

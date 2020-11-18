@@ -55,6 +55,7 @@ public Book(String title, ArrayList<String> authors, String description, double 
 	    this.description = description;
 	}
 
+	//Given a quote as an input, finds books containing a similar quote
 	public static String quoteSearch(String quote) throws Exception {
 		org.jsoup.nodes.Document doc = org.jsoup.Jsoup.connect("https://www.goodreads.com/quotes/search?utf8=%E2%9C%93&q=" + quote + "&commit=Search").get();
 		org.jsoup.select.Elements els = doc.getElementsByClass("authorOrTitle");
@@ -73,7 +74,7 @@ public Book(String title, ArrayList<String> authors, String description, double 
 		return elList.toString();
 	}
 
-
+	//Give a public domain book and a list of words, finds the frequency of each word within the book
 	public static String wordFrequency(String book, String[] words, String path) throws Exception {
 		BufferedReader br = new BufferedReader(new FileReader(new File(path.substring(0, path.length()-1) + "GUTINDEX.ALL")));
 		String booknum;
@@ -94,8 +95,9 @@ public Book(String title, ArrayList<String> authors, String description, double 
 		booknum += "/" + booknum + ".txt";
 		url.append(booknum);
 		int[] freqs = new int[words.length];
+		String text = org.jsoup.Jsoup.connect(url.toString()).get().getElementsByTag("body").get(0).text();
 		for (int i = 0; i < words.length; i++) {
-			freqs[i] = count_freq(org.jsoup.Jsoup.connect(url.toString()).get().getElementsByTag("body").get(0).text(), words[i]);
+			freqs[i] = count_freq(text, words[i]);
 		}
 		System.out.println(words[0] + freqs[0]);
 		StringBuilder ret = new StringBuilder();
@@ -103,8 +105,10 @@ public Book(String title, ArrayList<String> authors, String description, double 
 			ret.append(words[i]);
 			ret.append(": ");
 			ret.append(freqs[i]);
-			if (i != words.length - 1) ret.append("\n");
+			ret.append("\n");
 		}
+		ret.append("Total Word Count: ");
+		ret.append(countWordsUsingSplit(text));
 		return ret.toString();
 	}
 
@@ -123,5 +127,15 @@ public Book(String title, ArrayList<String> authors, String description, double 
 		}
 
 		return freq;
+	}
+
+	//Counts words to find frequencies as percentages
+	public static int countWordsUsingSplit(String input) {
+		if (input == null || input.isEmpty()) {
+			return 0;
+		}
+
+		String[] words = input.split("\\s+");
+		return words.length;
 	}
 }
