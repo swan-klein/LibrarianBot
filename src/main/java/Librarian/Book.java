@@ -97,7 +97,7 @@ public Book(String title, ArrayList<String> authors, String description, double 
 		int[] freqs = new int[words.length];
 		String text = org.jsoup.Jsoup.connect(url.toString()).get().getElementsByTag("body").get(0).text();
 		for (int i = 0; i < words.length; i++) {
-			freqs[i] = count_freq(text, words[i]);
+			freqs[i] = countFreq(text, words[i]);
 		}
 		System.out.println(words[0] + freqs[0]);
 		StringBuilder ret = new StringBuilder();
@@ -114,7 +114,7 @@ public Book(String title, ArrayList<String> authors, String description, double 
 
 	// Function to count the frequency of
 	// a given word in the given string
-	static int count_freq(String str, String word) {
+	static int countFreq(String str, String word) {
 
 		int freq = 0;
 		// Splitting to find the word
