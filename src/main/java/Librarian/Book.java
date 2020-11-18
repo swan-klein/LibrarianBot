@@ -71,6 +71,7 @@ public Book(String title, ArrayList<String> authors, String description, double 
 				}
 			}
 		}
+		if (elList.toString().length() == 0) return "Quote not found";
 		return elList.toString();
 	}
 
