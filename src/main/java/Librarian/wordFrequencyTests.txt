@@ -1,0 +1,7 @@
+!wordFrequency xerces;fire
+!wordFrequency xerxes;fire
+!wordFrequency Xerxes;fire
+!wordFrequency Xerxes; quick;fire xerxes xerces
+!wordFrequency Personal record of the Thirteenth Regiment;battle the
+
+I manually tested this function, checking if it matched the results ctrl+F gave on the Project Gutenberg website.

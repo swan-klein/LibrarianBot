@@ -1,0 +1,3 @@
+# LibrarianBot
+
+LibrarianBot will allow a user to search for and obtain various information about books by inputting search parameters. A user will be able to provide a quote or excerpt from a book and find the title of the book. Additionally, users will be able to create and solve a word search randomly generated from words significant and unique to the selected book, such as character names, or imaginary terms from fantasy and science-fiction. Other obtainable and easily readable information will include being provided a list of books written by a given author (in addition to checking if the author has written under any pseudonyms) and checking the price/availability of a book from a few large websites such as Amazon and B&N.
