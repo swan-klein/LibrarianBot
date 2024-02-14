@@ -7,7 +7,7 @@ import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
     public static void main(String[] args) throws LoginException {
-        String token = "NzUzMzE2MDM3MzE4OTM0NjI5.X1kaOw.paAaQZcUggye32PliJVniCjGET4";
+        String token = "token private";
         JDABuilder builder = JDABuilder.createDefault(token);
         builder.addEventListeners(new Main());
         builder.build();
